@@ -26,7 +26,7 @@ public class SeleniumTest {
         driver.navigate().to("https://www.etsy.com");
 
         // navigate back
-       // driver.navigate().back();
+       driver.navigate().back();
 
         // navigate forward
 
