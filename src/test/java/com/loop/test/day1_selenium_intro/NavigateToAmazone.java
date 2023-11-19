@@ -18,9 +18,7 @@ public class NavigateToAmazone {
         WebDriverManager.chromedriver().setup();    // here we are setting our driver
 
         WebDriver driver = new ChromeDriver();    // create an instance variable
-
         driver.get("https://www.amazone.com");    // what page do you want to navigate
-
         driver.manage().window().maximize();
         driver.navigate().back();
         driver.navigate().forward();
