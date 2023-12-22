@@ -40,7 +40,8 @@ public class T2_windows extends Base {
 //            }
  //       }
 
-        BrowserUtils.switchWindowAndValidate(driver, "amazon.com", "amazon");
+        //BrowserUtils.switchWindowAndValidate(driver, "amazon.com", "amazon");
+        BrowserUtils.switchToWindow(driver, "Facebook");
 
     }
 
