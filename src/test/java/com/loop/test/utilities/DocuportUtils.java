@@ -15,13 +15,13 @@ public class DocuportUtils {
      * @param role, comes from docuport constants
      * @aythor Anna
      */
-    public static void  login(WebDriver driver, String role) throws InterruptedException {
-        driver.get("https://beta.docuport.app/");
-        WebElement username = driver.findElement(By.xpath("//label[contains(text(), 'Username or email')]/following-sibling::input"));
-        WebElement password = driver.findElement(By.xpath("//input[@type='password']"));
-        WebElement loginbutton = driver.findElement(By.xpath("//button[@type='submit']"));
-
-        switch (role.toLowerCase()) {
+    public static void login(WebDriver driver, String role) throws InterruptedException {
+        //driver.get("https://beta.docuport.app/");
+        Driver.getDriver().get(ConfigurationReader.getProperty("env"));
+        WebElement username = Driver.getDriver().findElement(By.xpath("//label[.='Username or email']//following-sibling::input"));
+        WebElement password = Driver.getDriver().findElement(By.xpath("//input[@type='password']"));
+        WebElement loginButton = Driver.getDriver().findElement(By.xpath("//button[@type='submit']"));
+        switch (role.toLowerCase()){
             case "client":
                 username.sendKeys(DocuportConstants.USERNAME_CLIENT);
                 password.sendKeys(DocuportConstants.PASSWORD);
@@ -38,32 +38,31 @@ public class DocuportUtils {
                 username.sendKeys(DocuportConstants.USERNAME_EMPLOYEE);
                 password.sendKeys(DocuportConstants.PASSWORD);
                 break;
-            default:
-                throw new InputMismatchException("There is no such role: " + role);
+            default: throw new InputMismatchException("There us not such a role: " + role);
         }
 
-        loginbutton.click();
-        if (role.toLowerCase().equals("client")) {
+        loginButton.click();
+
+        if(role.toLowerCase().equals("client")){
             Thread.sleep(3000);
-            WebElement continueButton = driver.findElement(By.xpath("//button[@type='submit']"));
-            continueButton.click();
+            WebElement cont = Driver.getDriver().findElement(By.xpath("//button[@type='submit']"));
+            cont.click();
+            Thread.sleep(3000);
         }
     }
 
     /**
-     * logs out from the app
+     * logs out from the application
      * @param driver
-     * @author anna
+     * @author nadir
      */
-public static void logOut(WebDriver driver) {
-    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-    WebElement userIcon = driver.findElement(By.xpath("//div[@class='v-avatar primary']"));
-    userIcon.click();
-    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-    WebElement logOut = driver.findElement(By.xpath("//span[contains(text(), 'Log out')]"));
-    logOut.click();
-    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-}
-
-
+    public static void logOut(WebDriver driver){
+        Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        WebElement userIcon = Driver.getDriver().findElement(By.xpath("//div[@class='v-avatar primary']"));
+        userIcon.click();
+        Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        WebElement logOut = Driver.getDriver().findElement(By.xpath("//span[contains(text(),'Log out')]"));
+        logOut.click();
+        Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+    }
 }
